@@ -1,0 +1,12 @@
+{
+    "name": "osetin/latepoint-cerber",
+    "description": "Router for latepoint plugin",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Tamerlan Soziev",
+            "email": "tamik@soziev.com"
+        }
+    ],
+    "require": {}
+}
