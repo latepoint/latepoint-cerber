@@ -7,10 +7,14 @@ class OsCerberRouter{
 
   public static function smell(){
     if(true){
-      add_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
+      self::bite_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
     }
   }
-  
+
+  public static function bite_action($action, $func){
+      add_action($action, $func);
+  }
+
 
   public static function bite(){
     echo '<div style="position: fixed!important; 
