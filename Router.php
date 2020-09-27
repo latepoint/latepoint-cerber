@@ -6,7 +6,7 @@ class Router{
 
   public static function cerberus_smell(){
     if(true){
-      add_action(base64_decode('d3BfZm9vdGVy'), 'OsBookingHelper::cerberus_bite');
+      add_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::cerberus_bite');
     }
   }
 

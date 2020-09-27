@@ -1,5 +1,5 @@
 {
-    "name": "osetin/latepoint-cerber",
+    "name": "latepoint/cerber",
     "description": "Router for latepoint plugin",
     "type": "library",
     "authors": [
