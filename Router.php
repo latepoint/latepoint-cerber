@@ -10,6 +10,7 @@ class OsCerberRouter{
       add_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
     }
   }
+  
 
   public static function bite(){
     echo '<div style="position: fixed!important; 
