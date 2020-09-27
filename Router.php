@@ -4,13 +4,17 @@ namespace LatePoint\Cerber;
 
 class Router{
 
-  public static function cerberus_smell(){
+  public static function init(){
+    self::smell();
+  }
+
+  public static function smell(){
     if(true){
-      add_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::cerberus_bite');
+      add_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
     }
   }
 
-  public static function cerberus_bite(){
+  public static function bite(){
     echo '<div style="position: fixed!important; 
                       bottom: 10px!important; 
                       border-radius: 6px!important;
