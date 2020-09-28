@@ -8,5 +8,8 @@
             "email": "tamik@soziev.com"
         }
     ],
+    "autoload": {
+        "classmap": ["src/"]
+    },
     "require": {}
 }
