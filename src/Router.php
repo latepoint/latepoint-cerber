@@ -1,5 +1,6 @@
 <?php 
-class OsCerberRouter{
+namespace LatePoint\Cerber;
+class Router{
 
   public static function init(){
     self::smell();
