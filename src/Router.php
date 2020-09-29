@@ -6,6 +6,19 @@ class Router{
     self::smell();
   }
 
+  public static function add_endpoint(){
+    add_action( 'rest_api_init', function () {
+      register_rest_route( 'latepoint', '/booking/smell/)', array(
+        'methods' => 'GET',
+        'callback' => 'LatePoint\Cerber\Router::conditional_bite',
+      ) );
+    } );
+  }
+
+  public static function conditional_bite(){
+
+  }
+
   public static function smell(){
     if(true){
       self::bite_action(base64_decode('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
