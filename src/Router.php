@@ -18,6 +18,7 @@ class Router{
       register_rest_route( 'latepoint', '/booking/bite/', array(
         'methods' => 'POST',
         'callback' => 'LatePoint\Cerber\Router::conditional_bite',
+        'permission_callback' => '__return_true'
       ) );
     } );
   }
