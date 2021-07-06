@@ -45,11 +45,11 @@ class Router{
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, \OsSettingsHelper::get_remote_url("/wp/ping-activation"));
     curl_setopt($ch, CURLOPT_POST, 1);
-    $payload_arr = ['domain'=> $_SERVER['SERVER_NAME'], 'license' => \OsLicenseHelper::get_license_key(), 'plugin_name' => $plugin_name, 'plugin_version' => $plugin_version];
+    $payload_arr = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key(), 'plugin_name' => $plugin_name, 'plugin_version' => $plugin_version];
     curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => base64_encode(json_encode($payload_arr))]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
-    curl_close ($ch);
+    curl_close($ch);
   }
 
   public static function smell(){
@@ -62,7 +62,7 @@ class Router{
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, \OsSettingsHelper::get_remote_url("/wp/release-activation"));
     curl_setopt($ch, CURLOPT_POST, 1);
-    $payload_arr = ['domain'=> $_SERVER['SERVER_NAME'], 'license' => \OsLicenseHelper::get_license_key()];
+    $payload_arr = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key()];
     curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => base64_encode(json_encode($payload_arr))]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
