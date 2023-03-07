@@ -41,14 +41,29 @@ class Router{
     return (\OsSettingsHelper::get_settings_value(self::chew('bGljZW5zZQ==')) && \OsSettingsHelper::get_settings_value(self::chew('aXNfYWN0aXZlX2xpY2Vuc2U=')) == self::chew('eWVz'));
   }
 
-  public static function trace($plugin_name, $plugin_version){
+
+	public static function curl_post_setup($path, $payload){
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, \OsSettingsHelper::get_remote_url("/wp/ping-activation"));
+    curl_setopt($ch, CURLOPT_URL, \OsSettingsHelper::get_remote_url($path));
     curl_setopt($ch, CURLOPT_POST, 1);
-    $payload_arr = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key(), 'plugin_name' => $plugin_name, 'plugin_version' => $plugin_version];
-    curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => base64_encode(json_encode($payload_arr))]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => base64_encode(json_encode($payload))]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		// For local debug
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+		return $ch;
+	}
+
+  public static function trace($plugin_name, $plugin_version){
+    $payload = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key(), 'plugin_name' => $plugin_name, 'plugin_version' => $plugin_version];
+		$ch = self::curl_post_setup("/wp/ping-activation", $payload);
+
     $response = curl_exec($ch);
+		if ($response === false) {
+      \OsDebugHelper::log('cURL Error', 'curl_error', ['error' => curl_error($ch), 'error_code' => curl_errno($ch)]);
+    }
     curl_close($ch);
   }
 
@@ -59,16 +74,18 @@ class Router{
   }
 
   public static function release(){
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, \OsSettingsHelper::get_remote_url("/wp/release-activation"));
-    curl_setopt($ch, CURLOPT_POST, 1);
-    $payload_arr = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key()];
-    curl_setopt($ch, CURLOPT_POSTFIELDS, ['payload' => base64_encode(json_encode($payload_arr))]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $payload = ['domain'=> \OsUtilHelper::get_site_url(), 'license' => \OsLicenseHelper::get_license_key()];
+		$ch = self::curl_post_setup("/wp/release-activation", $payload);
+
     $response = curl_exec($ch);
+		if ($response === false) {
+      \OsDebugHelper::log('cURL Error', 'curl_error', ['error' => curl_error($ch), 'error_code' => curl_errno($ch)]);
+    }
     $response_info = curl_getinfo($ch);
     if($response_info["http_code"] == 200){
       \OsLicenseHelper::clear_license();
+    }else{
+      \OsDebugHelper::log('cURL Error', 'curl_error', ['response' => $response_info]);
     }
     curl_close ($ch);
   }
