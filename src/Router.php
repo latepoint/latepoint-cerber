@@ -69,7 +69,7 @@ class Router{
 
   public static function smell(){
     if(!self::double_check()){
-      self::bite_action(self::chew('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
+//      self::bite_action(self::chew('d3BfZm9vdGVy'), 'LatePoint\Cerber\Router::bite');
     }
   }
 
